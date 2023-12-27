@@ -20,8 +20,10 @@ let gameTurnCount = 0;
 let toggle = 0;
 let gameFinish = false;
 let compPlay = true;
+let answer ="";
 // function to initialize the game
 function initGame() {
+  answer = "";
   currentPlayer = "X";
   // empty game logic grid
   gameGrid = ["", "", "", "", "", "", "", "", ""];
@@ -29,6 +31,7 @@ function initGame() {
   boxes.forEach((box, index) => {
     box.innerText = "";
     //make boxes reactive to click
+    if(answer === "")
     boxes[index].style.pointerEvents = "all";
     //   make boxes transparent
     // boxes[index].classList.remove("win");
@@ -65,7 +68,7 @@ function handleClick(index) {
     console.log('handled click');
     console.log(boxes);
     //remove pointer events from all
-    if(compPlay){
+    if(compPlay ){
       boxes.forEach((box) => {
         box.style.pointerEvents = "none";
       });
@@ -84,14 +87,16 @@ function handleClick(index) {
       // check if game over
       setTimeout(() => {
         checkGameOver();
-        boxes.forEach((box) => {
-          if(gameFinish === false ){
-            box.style.pointerEvents = "all";
-          }
-        });
+        if(answer === ""){
+          boxes.forEach((box) => {
+            if(gameFinish === false ){
+              box.style.pointerEvents = "all";
+            }
+          });
+        }
       }, 610);
     }
-      if(!compPlay){
+      if(!compPlay && answer === ""){
         boxes.forEach((box) => {
           box.style.pointerEvents = "all";
         });
